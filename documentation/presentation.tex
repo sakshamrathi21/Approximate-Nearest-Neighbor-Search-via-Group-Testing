@@ -80,6 +80,38 @@
 }
 
 \section{Introduction}
+\begin{frame}{Nearest Neighbor Search}
+	\begin{itemize}
+		\item Nearest neighbor search is a fundamental problem with many applications in machine learning systems.
+		\item {\bf Task:} Given a dataset $D = \{x_1, x_2, \dots , x_N\}$, the goal is to build a data structure that can be queried with any point $q$ to obtain a small set of points $x_i \in D$ that have high similarity (low distance) to the query. This structure is called an index.
+		\item Such tasks frequently arise in genomics, web-scale data mining,
+		machine learning, and other large-scale applications.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Locality Sensitive Hashing}
+	\begin{itemize}
+		\item {\bf Locality Sensitive Hashing (LSH)} algorithms use an LSH function to partition the dataset into buckets.
+		\item The hash function is selected so that the distance between points in the same bucket is likely to be small. 
+		\item To find the near neighbors of a query, we hash the query and compute the distance to every point in the corresponding bucket.
+		\item  {\bf Count-Based LSH} identifies neighbors by simply counting how many times two points land in the same hash bucket across multiple hash functions.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Formal Problem Statement}
+	\begin{itemize}
+		\item \textbf{(R, c)-Approximate Near Neighbor:} Given a dataset $D$, if there exists a point within distance $R$ of a query $y$, return some point within distance $c \cdot R$, with high probability.
+		\begin{itemize}
+			\item $R$ is the distance threshold (radius).
+			\item $c > 1$ is the approximation factor.
+		\end{itemize}
+		\item Any algorithm that solves the randomized nearest neighbor problem also solves the approximate near neighbor problem with $c=1$ and any $R \ge$ distance to the nearest neighbor.
+		\item {(Definition)}
+		{\bf Randomized Nearest neighbor:} Given a dataset $D$ and a distance metric $d(\cdot, \cdot)$ and a failure probability $\delta \in [0, 1]$, construct a data structure which, given a query point $y$ reports the point $x \in D$ with the smallest distance $d(x,y)$ with probability greater than $1 - \delta$.
+	\end{itemize}
+\end{frame}
+
+
 
 
 
