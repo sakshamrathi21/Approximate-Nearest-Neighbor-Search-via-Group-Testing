@@ -111,7 +111,15 @@
 	\end{itemize}
 \end{frame}
 
-
+\begin{frame}{Group Testing}
+	\begin{itemize}
+		\item We are given a set $D$ of $N$ items, with $k$ positives (“hits”) and $N-k$ negatives (“misses”).
+		\item \textbf{Goal:} Identify all positive items using fewer than $N$ group tests.
+		\item A \textit{group test} is positive iff at least one item in the group is positive.
+		\item \textbf{Testing Variants:} Can be \textit{noisy} (with false positives/negatives), \textit{adaptive} (tests depend on previous results), or \textit{non-adaptive} (all tests run in parallel).
+		\item The paper uses a \textbf{doubly regular design:} Each item appears in an equal number of tests; each test has an equal number of items.
+	\end{itemize}
+\end{frame}
 
 
 
