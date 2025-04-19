@@ -1,0 +1,52 @@
+\begin{thebibliography}{7}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \expandafter\ifx\csname doi\endcsname\relax
+  \def\doi#1{doi:\discretionary{}{}{}#1}\fi \else
+  \expandafter\ifx\csname doi\endcsname\relax
+  \def\doi{doi:\discretionary{}{}{}\begingroup \urlstyle{rm}\Url}\fi \fi
+
+\bibitem[{Corbett{-}Davies and Goel(2018)}]{Corbett18}
+Corbett{-}Davies, S., S.~Goel. 2018.
+\newblock The measure and mismeasure of fairness: {A} critical review of fair machine learning.
+\newblock CoRR.
+\newblock \urlprefix\url{http://arxiv.org/abs/1808.00023}.
+
+\bibitem[{Cowgill and Tucker(2020)}]{Cowgill20}
+Cowgill, B., C.E. Tucker. 2020.
+\newblock Algorithmic fairness and economics.
+\newblock Social Science Research Network.
+\newblock \urlprefix\url{https://ssrn.com/abstract=3361280}.
+\newblock Accessed June 4, 2023.
+
+\bibitem[{Fu et~al.(2022)Fu, Aseri, Singh, and Srinivasan}]{Fu22}
+Fu, R., M.~Aseri, P.V. Singh, K.~Srinivasan. 2022.
+\newblock {``Un"}fair machine learning algorithms.
+\newblock {\it Management Science\/} {\bf 68}(6) 4173--4195.
+
+\bibitem[{K{\"o}chling and Wehner(2020)}]{Kochling20}
+K{\"o}chling, A., M.C. Wehner. 2020.
+\newblock Discriminated by an algorithm: {A} systematic review of discrimination and fairness by algorithmic decision-making in the context of {HR} recruitment and {HR} development.
+\newblock {\it Business Research\/} {\bf 13}(3) 795--848.
+
+\bibitem[{Lambrecht and Tucker(2019)}]{Lambrecht19}
+Lambrecht, A., C.~Tucker. 2019.
+\newblock Algorithmic bias? {A}n empirical study of apparent gender-based discrimination in the display of stem career ads.
+\newblock {\it Management science\/} {\bf 65}(7) 2966--2981.
+
+\bibitem[{Silva and Kenney(2019)}]{Silva19}
+Silva, S., M.~Kenney. 2019.
+\newblock Algorithms, platforms, and ethnic bias.
+\newblock {\it Communications of the ACM\/} {\bf 62}(11) 37--39.
+
+\bibitem[{Yuan et~al.(2023)Yuan, Aseri, and Mukhopadhyay}]{Yuan23}
+Yuan, D., M.~Aseri, T.~Mukhopadhyay. 2023.
+\newblock Is fair advertising good for platforms?
+\newblock Social Science Research Network.
+\newblock \urlprefix\url{https://ssrn.com/abstract=4444865}.
+\newblock Accessed June 4, 2023.
+
+\end{thebibliography}
