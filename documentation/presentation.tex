@@ -89,12 +89,13 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Locality Sensitive Hashing}
+\begin{frame}{Group Testing}
 	\begin{itemize}
-		\item {\bf Locality Sensitive Hashing (LSH)} algorithms use an LSH function to partition the dataset into buckets.
-		\item The hash function is selected so that the distance between points in the same bucket is likely to be small. 
-		\item To find the near neighbors of a query, we hash the query and compute the distance to every point in the corresponding bucket.
-		\item  {\bf Count-Based LSH} identifies neighbors by simply counting how many times two points land in the same hash bucket across multiple hash functions.
+		\item We are given a set $D$ of $N$ items, with $k$ positives (“hits”) and $N-k$ negatives (“misses”).
+		\item \textbf{Goal:} Identify all positive items using fewer than $N$ group tests.
+		\item A \textit{group test} is positive iff at least one item in the group is positive.
+		\item \textbf{Testing Variants:} Can be \textit{noisy} (with false positives/negatives), \textit{adaptive} (tests depend on previous results), or \textit{non-adaptive} (all tests run in parallel).
+		\item The paper uses a \textbf{doubly regular design:} Each item appears in an equal number of tests; each test has an equal number of items.
 	\end{itemize}
 \end{frame}
 
@@ -111,15 +112,59 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Group Testing}
+\section{Locality Sensitive Hashing}
+
+\begin{frame}{Locality Sensitive Hashing}
+	A hash function $h(x) \rightarrow \{1, \dots, R\}$ is a function that maps an input $x$ to an integer in the range $[1, R]$. 
+
+	The two points $x$ and $y$ are said to collide if $h(x) = h(y)$.
+
+	\[s(x, y) = Pr_H(h(x) = h(y))\]
+
+	For now, we will assume that $s(x, y) = sim(x, y)$.
+
+	For any positive integer L, we may transform an LSH family $H$ with collision probability $s(x,y)$ into a new family having $s(x,y)^L$ by sampling $L$ hash functions from $H$ and concatenating the values to obtain a new hash code $[h_1(x),h_2(x),...,h_L(x)]$. If the original hash family had the range $[1, R]$, the new hash family has the range $[1, R^L]$.
+\end{frame}
+\begin{frame}{Locality Sensitive Hashing}
 	\begin{itemize}
-		\item We are given a set $D$ of $N$ items, with $k$ positives (“hits”) and $N-k$ negatives (“misses”).
-		\item \textbf{Goal:} Identify all positive items using fewer than $N$ group tests.
-		\item A \textit{group test} is positive iff at least one item in the group is positive.
-		\item \textbf{Testing Variants:} Can be \textit{noisy} (with false positives/negatives), \textit{adaptive} (tests depend on previous results), or \textit{non-adaptive} (all tests run in parallel).
-		\item The paper uses a \textbf{doubly regular design:} Each item appears in an equal number of tests; each test has an equal number of items.
+		\item {\bf Locality Sensitive Hashing (LSH)} algorithms use an LSH function to partition the dataset into buckets.
+		\item The hash function is selected so that the distance between points in the same bucket is likely to be small. 
+		\item To find the near neighbors of a query, we hash the query and compute the distance to every point in the corresponding bucket.
+		\item  {\bf Count-Based LSH} identifies neighbors by simply counting how many times two points land in the same hash bucket across multiple hash functions.
 	\end{itemize}
 \end{frame}
+
+
+
+
+
+\section{Distance-Sensitive Bloom Filters}
+\begin{frame}{Distance-Sensitive Bloom Filters}
+	\begin{itemize}
+		\item (Definition) {\bf Approximate Set Membership:} Given a set $D$ of $N$ points and similarity thresholds
+		$S_L$ and $S_H$, construct a data structure which, given a query point $y$, has:
+
+		True Positive Rate: If there is $x \in D$ with $sim(x,y) >S_H$, the structure returns true w.p. $ \geq p$
+
+		False Positive Rate: If there is no $x \in D$ with $sim(x,y) > S_L$, the structure returns true w.p. $\leq q$
+
+	\item The distance-sensitive Bloom filter solves this problem using LSH functions and a 2D bit array. The structure consists of $m$ binary arrays that are each indexed by an LSH function. There are threeparameters: the number of arrays $m$, a positive threshold $t \leq m$, and the number of concatenated hash functions $L$ used within each array.  
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Distance-Sensitive Bloom Filters}
+	\begin{itemize}
+		\item To construct the filter, we insert elements $x \in D$ by setting the bit located at array index $[m,h_m(x)]$ to 1. 
+		\item To query the filter, we determine the $m$ hash values of the query $y$. If at least $t$ of the corresponding
+		bits are set, we return true. Otherwise, we return false. 
+		\item (Theorem) Assuming the existence of an LSH family with collision probability $s(x,y) = sim(x,y)$,
+		the distance-sensitive Bloom filter solves the approximate membership query problem with
+		\[p \geq 1 - exp\left(-2m(-t + S_H^L)^2\right)\]
+		\[q \leq exp\left(-2m(-t + NS_L^L)^2\right)\]
+	\end{itemize}
+\end{frame}
+
+
 
 
 
