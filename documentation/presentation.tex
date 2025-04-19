@@ -164,10 +164,79 @@
 	\end{itemize}
 \end{frame}
 
+\section{Algorithm}
+
+\begin{frame}{Index Construction}
+
+\textbf{Input:} Dataset $D$ of size $N$, positive integers $B$ and $R$, similarity threshold $S$
+
+\textbf{Output:} A FLINNG search index consisting of membership sets $M_{r,b}$ and group tests $C_{r,b}$
+
+\begin{itemize}
+    \item For $r = 0$ to $R - 1$:
+    \begin{itemize}
+        \item Let $\pi(D)$ be a random permutation of $D$
+        \item For $b = 0$ to $B - 1$:
+        \begin{itemize}
+            \item Define $M_{r,b} = \{ \pi(D)_i \mid i \bmod B = b \}$
+        \end{itemize}
+    \end{itemize}
+    
+    \item For $r = 0$ to $R - 1$:
+    \begin{itemize}
+        \item For $b = 0$ to $B - 1$:
+        \begin{itemize}
+            \item Construct a classifier $C_{r,b}$ for membership set $M_{r,b}$ with true positive rate $p$ and false positive rate $q$
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Index Construction}
+	\begin{itemize}
+		\item If we apply a similarity
+		threshold to the dataset, we obtain a near neighbor set $K= \{x \in D | sim(x,y) \geq S\}$. We consider $K$ to be the set of “positives” in the group testing problem.
+		\item In order to do so, we split the dataset $D$ into a set of groups, which we visualize as a $B \times R$ grid
+		of cells. Each cell has a group of items $M_{r,b}$ and a corresponding group test $C_{r,b}$. To assign items
+		to cells, we evenly distribute the $N$ points among the $B$ cells in each column of the grid, and we independently repeat this assignment process $R$ times.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Index Query}
+	\textbf{Input:} A FLINNG index and a query $y$
+
+\textbf{Output:} Approximate set $\hat{K}$ of neighbors with similarity greater than the threshold $S$
+
+\begin{itemize}
+    \item Initialize $\hat{K} = \{1, \ldots, N\}$
+    \item For $r = 0$ to $R - 1$:
+    \begin{itemize}
+        \item Initialize $Y = \emptyset$
+        \item For $b = 0$ to $B - 1$:
+        \begin{itemize}
+            \item If $C_{r,b}(y) = 1$ then:
+            % \begin{itemize}
+                $Y = Y \cup M_{r,b}$
+            % \end{itemize}
+        \end{itemize}
+        \item $\hat{K} = \hat{K} \cap Y$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Index Query}
+	\begin{itemize}
+		\item To query the index with a point y, we begin by querying each classifier. If $C_{r,b}(y) = 1$, then at least one of the points in $M_{r,b}$ has high similarity to y. We collect all of these ``candidate points'' by taking the union of the $M_{r,b}$ sets for which $C_{r,b}(y) = 1$. 
+		\item We repeat this process for each of the $R$ repetitions to obtain $R$ candidate sets, one for each column in the grid. 
+		\item With high probability, each candidate set contains the true neighbors, but it may also have some non-neighbors that were included in $M_{r,b}$ by chance. To filter out these points, we intersect the candidate sets to obtain our approximate near
+		neighbor set $\hat{K}$.
+	\end{itemize}
+
+	
+\end{frame}
+
 
 
 
 
 \end{document}
-
-
