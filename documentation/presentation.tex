@@ -235,7 +235,7 @@
 
 \section{Theory}
 \begin{frame}{Group Testing: Runtime and Accuracy}
-\textbf{Lemma:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d true positive rate $p$ and false negative rate $q$. Then the algorithm reports points as ``positive''	with probability:
+\textbf{Lemma 1:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d true positive rate $p$ and false negative rate $q$. Then the algorithm reports points as ``positive''	with probability:
 \[
 Pr(\text{Report } x \mid x \in K) \geq p^R
 \]
@@ -276,6 +276,29 @@ p\left(1 - \left(\frac{N(B-1)}{eB(N-1)}\right)^{|K|}\right) \bigg]^R &
 
 
 \begin{frame}{Query Time Analysis}
+	We will consider the query time of a $2\sqrt{N}\times R$ grid of Bloom filter classifiers and $T = mL$.
+
+	\textbf{Lemma 2:} Under the assumptions of Lemma 1, we can use distance-sensitive Bloom filters as tests to achieve the following query time $t_\text{query}$ of our Algorithm with probability $1 - \delta$
+
+	\[
+	\begin{aligned}
+		t_\text{query} =
+		\mathcal{O}(RN^{\frac{1}{2} + \gamma}log(N) max(-log(q), -log(1-p)) 
+	+ {} & \\
+	RN^{\frac{1}{2}} log^2(N)(|K|+ qN^{\frac{1}{2}}log(\frac{1}{\delta})) &
+	\end{aligned}
+	\]
+
+	\textbf{Lemma 3:} Under the assumptions of Lemma 1,we can build a data structure that solves the randomized nearest neighbor problem for sufficiently large N and small $\delta$, where
+
+	$p = 1 - \frac{\delta}{2R}$, $q = N^{-\frac{1}{2}}$, $R = \frac{log(\frac{1}{\delta})}{log(4.80N^{\frac{1}{2}}) - log(2e^2 + 3.44N^{\frac{1}{2}})}$
+\end{frame}
+
+\begin{frame}{Query Time Analysis}
+	\textbf{Theorem:} Under the assumptions of the previous Lemma, we solve the randomized nearest problem for $\gamma$-stable queries in time $t_\text{query}$:
+	\[
+		t_\text{query} = \mathcal{O}(N^{\frac{1}{2} + \gamma}log^4(N)log^3(\frac{1}{\delta}))
+	\]
 	
 \end{frame}
 
