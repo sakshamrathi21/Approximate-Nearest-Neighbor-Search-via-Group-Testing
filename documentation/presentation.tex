@@ -146,7 +146,7 @@
 
 		True Positive Rate: If there is $x \in D$ with $sim(x,y) >S_H$, the structure returns true w.p. $ \geq p$
 
-		False Negative Rate: If there is no $x \in D$ with $sim(x,y) > S_L$, the structure returns true w.p. $\leq q$
+		False Positive Rate: If there is no $x \in D$ with $sim(x,y) > S_L$, the structure returns true w.p. $\leq q$
 
 	\item The distance-sensitive Bloom filter solves this problem using LSH functions and a 2D bit array. The structure consists of $m$ binary arrays that are each indexed by an LSH function. There are threeparameters: the number of arrays $m$, a positive threshold $t \leq m$, and the number of concatenated hash functions $L$ used within each array.  
 	\end{itemize}
@@ -186,7 +186,7 @@
     \begin{itemize}
         \item For $b = 0$ to $B - 1$:
         \begin{itemize}
-            \item Construct a classifier $C_{r,b}$ for membership set $M_{r,b}$ with true positive rate $p$ and false negative rate $q$
+            \item Construct a classifier $C_{r,b}$ for membership set $M_{r,b}$ with true positive rate $p$ and false positive rate $q$
         \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -272,8 +272,13 @@ p\left(1 - \left(\frac{N(B-1)}{eB(N-1)}\right)^{|K|}\right) \bigg]^R &
 	\textbf{Theorem:} Given a true positive rate p, false negative rate qand stability parameter $\gamma$, it is possible to choose $m$, $L$ and $t$ so that the resulting distance-sensitive Bloom filter has true positive rate $p$ and false negative rate $q$ for all $\gamma$-stable queries. The query time is
 
 	\[\mathcal{O}(mL) = \mathcal{O}(-log(min(q,1-p))N\gamma log(N))\]
-
 \end{frame}
+
+
+\begin{frame}{Query Time Analysis}
+	
+\end{frame}
+
 
 
 
