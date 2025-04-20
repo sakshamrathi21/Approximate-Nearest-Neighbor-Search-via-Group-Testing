@@ -146,7 +146,7 @@
 
 		True Positive Rate: If there is $x \in D$ with $sim(x,y) >S_H$, the structure returns true w.p. $ \geq p$
 
-		False Positive Rate: If there is no $x \in D$ with $sim(x,y) > S_L$, the structure returns true w.p. $\leq q$
+		False Negative Rate: If there is no $x \in D$ with $sim(x,y) > S_L$, the structure returns true w.p. $\leq q$
 
 	\item The distance-sensitive Bloom filter solves this problem using LSH functions and a 2D bit array. The structure consists of $m$ binary arrays that are each indexed by an LSH function. There are threeparameters: the number of arrays $m$, a positive threshold $t \leq m$, and the number of concatenated hash functions $L$ used within each array.  
 	\end{itemize}
@@ -186,7 +186,7 @@
     \begin{itemize}
         \item For $b = 0$ to $B - 1$:
         \begin{itemize}
-            \item Construct a classifier $C_{r,b}$ for membership set $M_{r,b}$ with true positive rate $p$ and false positive rate $q$
+            \item Construct a classifier $C_{r,b}$ for membership set $M_{r,b}$ with true positive rate $p$ and false negative rate $q$
         \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -235,7 +235,7 @@
 
 \section{Theory}
 \begin{frame}{Group Testing: Runtime and Accuracy}
-\textbf{Lemma:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d false positive rate $p$ and false negative rate $q$. Then the algorithm reports points as ``positive''	with probability:
+\textbf{Lemma:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d true positive rate $p$ and false negative rate $q$. Then the algorithm reports points as ``positive''	with probability:
 \[
 Pr(\text{Report } x \mid x \in K) \geq p^R
 \]
@@ -269,7 +269,9 @@ p\left(1 - \left(\frac{N(B-1)}{eB(N-1)}\right)^{|K|}\right) \bigg]^R &
 	(Definition) $\gamma${\bf -Stable query:} We say that the query is $\gamma$-stable if $\frac{log(s_{|K|})}{log(s_{|K|}) - log(s_{|K|})} \leq \gamma$
 
 	\vspace{0.5cm}
-	\textbf{Theorem:} Given a 
+	\textbf{Theorem:} Given a true positive rate p, false negative rate qand stability parameter $\gamma$, it is possible to choose $m$, $L$ and $t$ so that the resulting distance-sensitive Bloom filter has true positive rate $p$ and false negative rate $q$ for all $\gamma$-stable queries. The query time is
+
+	\[\mathcal{O}(mL) = \mathcal{O}(-log(min(q,1-p))N\gamma log(N))\]
 
 \end{frame}
 
