@@ -231,7 +231,45 @@
 		\item With high probability, each candidate set contains the true neighbors, but it may also have some non-neighbors that were included in $M_{r,b}$ by chance. To filter out these points, we intersect the candidate sets to obtain our approximate near
 		neighbor set $\hat{K}$.
 	\end{itemize}
+\end{frame}
 
+\section{Theory}
+\begin{frame}{Group Testing: Runtime and Accuracy}
+\textbf{Lemma:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d false positive rate $p$ and false negative rate $q$. Then the algorithm reports points as ``positive''	with probability:
+\[
+Pr(\text{Report } x \mid x \in K) \geq p^R
+\]
+% \[
+% Pr(Report x | x \notin K) \leq \left[q\left(\frac{eN(B-1)}{B(N-1)}\right)^{|K|} + p\left(1 - \left(\frac{N(B-1)}{eB(N-1)}\right)^{|K|}\right)\right]^R
+% \]
+
+\[
+\begin{aligned}
+\Pr(\text{Report } x \mid x \notin K) \leq 
+\bigg[ q\left(\frac{eN(B-1)}{B(N-1)}\right)^{|K|} 
++ {} & \\
+p\left(1 - \left(\frac{N(B-1)}{eB(N-1)}\right)^{|K|}\right) \bigg]^R &
+\end{aligned}
+\]
+\end{frame}
+
+\begin{frame}{Group Testing: Runtime and Accuracy}
+	The cost of group testing inference includes the cost to do all $B \times R$ tests, plus the cost of intersecting the positive groups. 
+
+	\textbf{Theorem:} Under the assumptions in the previous lemma, let us suppose that each test runs in $\mathcal{O}(T)$. Then with probability $1 - \delta$:
+	\[
+	t_{\text{query}} = \mathcal{O}\left(BRT + \frac{RN}{B}(p|K| + qB)log(\frac{1}{\delta})logN\right)
+	\]
+\end{frame}
+
+\begin{frame}{Bounding the Test Cost}
+	To distinguish between the $|K|$ nearest neighbors and the rest of the dataset:
+	\[S_H = sim(x_{|K|}, y) = s_{|K|}\]
+	\[S_L = sim(x_{|K| + 1}, y) = s_{|K| + 1}\]
+	(Definition) $\gamma${\bf -Stable query:} We say that the query is $\gamma$-stable if $\frac{log(s_{|K|})}{log(s_{|K|}) - log(s_{|K|})} \leq \gamma$
+
+	\vspace{0.5cm}
+	\textbf{Theorem:} Given a 
 
 \end{frame}
 
