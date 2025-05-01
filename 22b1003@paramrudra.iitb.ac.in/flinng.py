@@ -87,7 +87,6 @@ class FLINNG:
                 for tableIndex in range(self.lsh.numTables):
                     hashValue = self.lsh._hash(queryVector, self.lsh.hyperplanes[tableIndex])
                     combinedHash += str(hashValue)
-                print(len(combinedHash), " ", combinedHash, " ", self.lsh.numTables)
                 if dsbf.query(combinedHash):
                     Y.update(self.groups[repeat][bucket])
             # approxNeighbours = approxNeighbours.intersection(Y)
@@ -129,7 +128,7 @@ if __name__ == '__main__':
     labels = labels.tolist()
     # Create the FLINNG Object
     print("[TEST] Initializing FLINNG ...")
-    flinng = FLINNG(inputDim=10, numHashes=48, numTables=3, bitArraySize=10000, hashCount=7, vectorLength=48, maxDistance=2, threshold=5, B=50, R=7)
+    flinng = FLINNG(inputDim=10, numHashes=48, numTables=3, bitArraySize=10000, hashCount=7, vectorLength=48, maxDistance=3, threshold=5, B=50, R=7)
     # Build the index
     print("[TEST] Building FLINNG Index ...")
     flinng.buildIndex(data)

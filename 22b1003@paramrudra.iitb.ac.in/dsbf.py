@@ -21,13 +21,10 @@ class DistanceSensitiveBloomFilter:
         """
         # Use a simple hash function to generate K different hash values
         hashes = []
-        # print("check", len(binaryString), self.K)
         for i in range(self.K):
             combined = binaryString + str(i)
             hashValue = int(sha256(combined.encode()).hexdigest(), 16) % self.M
             hashes.append(hashValue)
-        # print("chjeck")
-        # print(len(hash1) for hash1 in hashes)
         return hashes
     
     def _generateNeighbours(self, binaryString : str) -> list:
@@ -63,7 +60,6 @@ class DistanceSensitiveBloomFilter:
             raise ValueError("Binary string must contain only '0's and '1's")
         # print("[DEBUG] Inserting binary string into Bloom filter ... ")
         # # Generate K hash values for the binary string
-        # print("hello ", len(binaryString))
         hashes = self._hashes(binaryString)
         # # Set the bits at the hash indices to 1
         for hashValue in hashes:
@@ -94,14 +90,8 @@ class DistanceSensitiveBloomFilter:
         neighbours = self._generateNeighbours(binaryString)
         for neighbour in neighbours:
             neighbourHashes = self._hashes(neighbour)
-            count = 0
-            for hashValue in neighbourHashes:
-                if self.bitArray[hashValue]:
-                    count += 1
-            if count >= len(neighbourHashes)/3:
+            if all(self.bitArray[hashValue] for hashValue in neighbourHashes):
                 return True
-            # if any(self.bitArray[hashValue] for hashValue in neighbourHashes):
-            #     return True
         return False
     
     def info(self):
