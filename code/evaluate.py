@@ -423,9 +423,10 @@ if __name__ == '__main__':
     metrics = FLINNGMetrics(flinng, data, k=10)
     
     # Run the heatmap evaluation
-    r_values = [3, 5, 7, 9, 11]  # Different values of R to test
-    dim_values = [5, 10, 20, 30]  # Different input dimensions to test
-    
+    r_values = [3, 7, 11]  
+    dim_values = [5, 10, 20] 
+    # r_values = [11]
+    # dim_values = [30]
     heatmap_results = metrics.run_heatmap_evaluation(r_values, dim_values, n_samples=50)
     
     print("\n[METRICS] Heatmap Evaluation Complete:")
