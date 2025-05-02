@@ -72,6 +72,7 @@ class FLINNGMetrics:
             # Calculate recall (what fraction of true nearest neighbors were found)
             gt_neighbors = set(self.ground_truth[i])
             found_neighbors = set(approx_neighbors)
+            print(gt_neighbors, found_neighbors)
             if idx in found_neighbors:  # Remove self if present
                 found_neighbors.remove(idx)
                 
@@ -423,10 +424,10 @@ if __name__ == '__main__':
     metrics = FLINNGMetrics(flinng, data, k=10)
     
     # Run the heatmap evaluation
-    r_values = [3, 7, 11]  
-    dim_values = [5, 10, 20] 
-    # r_values = [11]
-    # dim_values = [30]
+    # r_values = [3]  
+    # dim_values = [5, 10, 20] 
+    r_values = [3]
+    dim_values = [5]
     heatmap_results = metrics.run_heatmap_evaluation(r_values, dim_values, n_samples=50)
     
     print("\n[METRICS] Heatmap Evaluation Complete:")
