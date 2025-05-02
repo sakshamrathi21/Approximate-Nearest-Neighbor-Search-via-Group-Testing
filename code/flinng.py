@@ -41,7 +41,7 @@ class FLINNG:
         '''
         Build the FLINNG Index
         '''
-        print("[DEBUG] Building FLINNG Index ... ")
+        # print("[DEBUG] Building FLINNG Index ... ")
         self.data = data
         self.N = len(data)
         self.lsh._createHashTable(data)
@@ -59,7 +59,7 @@ class FLINNG:
                         combinedHash += str(hashValue)
                     dsbf.insert(combinedHash)
                 self.filters[repeat][bucket] = dsbf
-        print("[DEBUG] FLINNG Index Built ... ")
+        # print("[DEBUG] FLINNG Index Built ... ")
 
     
     def query(self, queryVector : np.ndarray) -> List[int]:
@@ -122,7 +122,7 @@ class FLINNG:
                 if counts[point_idx] == self.R:
                     result.append(point_idx)
                     if len(result) == self.K:
-                        print(f"[DEBUG] Found {len(result)} neighbors using threshold relaxation")
+                        # print(f"[DEBUG] Found {len(result)} neighbors using threshold relaxation")
                         return result      
         if len(result) < self.K:
             remaining_candidates = sorted(range(self.N), key=lambda i: counts[i], reverse=True)
@@ -131,7 +131,7 @@ class FLINNG:
                     result.append(idx)
                     if len(result) == self.K:
                         break
-        print(f"[DEBUG] Found {len(result)} neighbors using threshold relaxation")
+        # print(f"[DEBUG] Found {len(result)} neighbors using threshold relaxation")
         return result
 
     def info(self):
@@ -147,29 +147,29 @@ class FLINNG:
 # Example usage
 if __name__ == '__main__':
     # Generate the dataset using scikit-learn
-    print("[TEST] Generating Dataset ...")
+    # print("[TEST] Generating Dataset ...")
     data, labels = make_blobs(n_samples=1000, centers=5, n_features=10, random_state=42)
     data = [x.reshape(-1, 1) for x in data]
     labels = labels.tolist()
     # Create the FLINNG Object
-    print("[TEST] Initializing FLINNG ...")
+    # print("[TEST] Initializing FLINNG ...")
     flinng = FLINNG(inputDim=10, numHashes=48, numTables=3, bitArraySize=10000, hashCount=7, vectorLength=48, maxDistance=2, threshold=5, B=50, R=7)
     # Build the index
-    print("[TEST] Building FLINNG Index ...")
+    # print("[TEST] Building FLINNG Index ...")
     flinng.buildIndex(data)
     # Print the details of the FLINNG index
-    print("[TEST] Printing FLINNG Index Details ...")
+    # print("[TEST] Printing FLINNG Index Details ...")
     flinng.info()
 
     # Create a query vector
-    print("[TEST] Creating Query Vector ...")
+    # print("[TEST] Creating Query Vector ...")
     queryVector = data[42] + np.random.normal(0, 0.1, (10, 1))
     # neighbours = flinng.query(queryVector)
     neighbours = flinng.query_using_threshold_relaxation(queryVector)
     print("[TEST] Query Results ...")
-    print(f"[TEST] Approximate Neighbours : {neighbours}")
-    print(f"[INFO] Ground Truth Label : {labels[42]}")
-    print(f"[INFO] Approximate Neighbours Labels : {[labels[i] for i in neighbours]}")
-    print("[TEST] Querying Complete ...")
+    # print(f"[TEST] Approximate Neighbours : {neighbours}")
+    # print(f"[INFO] Ground Truth Label : {labels[42]}")
+    # print(f"[INFO] Approximate Neighbours Labels : {[labels[i] for i in neighbours]}")
+    # print("[TEST] Querying Complete ...")
 
 # list(approxNeighbours)    
