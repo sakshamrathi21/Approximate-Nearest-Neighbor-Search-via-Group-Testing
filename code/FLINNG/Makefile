@@ -15,7 +15,7 @@ CPP_DEBUG_FLAGS := -g -fno-omit-frame-pointer
 CPP_OPT_FLAGS := -O3 -ffast-math
 CPP_WARN_FLAGS := -Wall -Werror
 INC_FLAGS := $(shell python3 -m pybind11 --includes)
-CPPFLAGS ?= -std=c++11 $(INC_FLAGS) $(CPP_WARN_FLAGS) $(CPP_OPT_FLAGS) $(CPP_DEBUG_FLAGS) -MMD -MP
+CPPFLAGS ?= -std=c++11 $(INC_FLAGS) $(CPP_WARN_FLAGS) $(CPP_OPT_FLAGS) $(CPP_DEBUG_FLAGS) -MMD -MP -fopenmp
 
 all: $(BUILD_DIR)/$(TARGET_PYBIND)
 
