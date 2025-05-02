@@ -13,3 +13,5 @@ __pycache__
 jbigkit/*
 *.nav
 *.snm
+try.py
+out
