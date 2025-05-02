@@ -296,11 +296,11 @@ class FLINNGMetrics:
                     from flinng import FLINNG
                     new_flinng = FLINNG(
                         inputDim=dim, 
-                        numHashes=min(48, dim * 2),  # Adjust hash count based on dimension
+                        numHashes=48,
                         numTables=self.flinng.lsh.numTables, 
                         bitArraySize=self.flinng.dsbfParameters[0], 
                         hashCount=self.flinng.dsbfParameters[1], 
-                        vectorLength=self.flinng.dsbfParameters[2], 
+                        vectorLength=48, 
                         maxDistance=self.flinng.dsbfParameters[3], 
                         threshold=self.flinng.threshold, 
                         B=self.flinng.B, 

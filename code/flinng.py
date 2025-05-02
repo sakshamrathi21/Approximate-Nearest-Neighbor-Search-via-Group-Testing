@@ -25,6 +25,7 @@ class FLINNG:
         self.R = R
         self.K = K
         self.lsh = LSH(inputDim, numHashes, numTables)
+        # print("HELLO", self.lsh.numTables, vectorLength)
         self.dsbfParameters = (bitArraySize, hashCount, self.lsh.numTables * vectorLength, maxDistance)
         self.threshold = threshold
         self.filters = [[None for _ in range(B)] for _ in range(R)]

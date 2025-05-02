@@ -51,6 +51,7 @@ class DistanceSensitiveBloomFilter:
             binaryString : str : The binary string to insert.
         """
         if len(binaryString) != self.N:
+            print(len(binaryString), self.N)    
             raise ValueError(f"Binary string must be of length {self.N}")
         if not all(bit in '01' for bit in binaryString):
             raise ValueError("Binary string must contain only '0's and '1's")
@@ -70,7 +71,7 @@ class DistanceSensitiveBloomFilter:
             raise ValueError(f"Binary string must be of length {self.N}")
         if not all(bit in '01' for bit in binaryString):
             raise ValueError("Binary string must contain only '0's and '1's")
-        print("[DEBUG] Querying Bloom filter ... ", flush=True)
+        # print("[DEBUG] Querying Bloom filter ... ", flush=True)
         neighbours = self._generateNeighbours(binaryString)
         for neighbour in neighbours:
             neighbourHashes = self._hashes(neighbour)
