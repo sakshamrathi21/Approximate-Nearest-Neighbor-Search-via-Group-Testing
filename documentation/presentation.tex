@@ -123,7 +123,7 @@
 
 	For now, we will assume that $s(x, y) = sim(x, y)$.
 
-	For any positive integer L, we may transform an LSH family $H$ with collision probability $s(x,y)$ into a new family having $s(x,y)^L$ by sampling $L$ hash functions from $H$ and concatenating the values to obtain a new hash code $[h_1(x),h_2(x),...,h_L(x)]$. If the original hash family had the range $[1, R]$, the new hash family has the range $[1, R^L]$.
+	For any positive integer $L$, we may transform an LSH family $H$ with collision probability $s(x,y)$ into a new family having $s(x,y)^L$ by sampling $L$ hash functions from $H$ and concatenating the values to obtain a new hash code $[h_1(x),h_2(x),...,h_L(x)]$. If the original hash family had the range $[1, R]$, the new hash family has the range $[1, R^L]$.
 \end{frame}
 \begin{frame}{Locality Sensitive Hashing}
 	\begin{itemize}
@@ -235,7 +235,7 @@
 
 \section{Theory}
 \begin{frame}{Group Testing: Runtime and Accuracy}
-\textbf{Lemma 1:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d true positive rate $p$ and false negative rate $q$. Then the algorithm reports points as ``positive''	with probability:
+\textbf{Lemma 1:} Suppose we have a dataset $D$ of points, where a subset $K \subseteq D$ is ``positive'' and the rest are ``negative''. Construct a $B \times R$ grid of tests, where each test has i.i.d true positive rate $p$ and false positive $q$. Then the algorithm reports points as ``positive''	with probability:
 \[
 Pr(\text{Report } x \mid x \in K) \geq p^R
 \]
@@ -269,7 +269,7 @@ p\left(1 - \left(\frac{N(B-1)}{eB(N-1)}\right)^{|K|}\right) \bigg]^R &
 	(Definition) $\gamma${\bf -Stable query:} We say that the query is $\gamma$-stable if $\frac{log(s_{|K|})}{log(s_{|K|}) - log(s_{|K|})} \leq \gamma$
 
 	\vspace{0.5cm}
-	\textbf{Theorem:} Given a true positive rate p, false negative rate qand stability parameter $\gamma$, it is possible to choose $m$, $L$ and $t$ so that the resulting distance-sensitive Bloom filter has true positive rate $p$ and false negative rate $q$ for all $\gamma$-stable queries. The query time is
+	\textbf{Theorem:} Given a true positive rate $p$, false positive rate $q$ and stability parameter $\gamma$, it is possible to choose $m$, $L$ and $t$ so that the resulting distance-sensitive Bloom filter has true positive rate $p$ and false positive rate $q$ for all $\gamma$-stable queries. The query time is
 
 	\[\mathcal{O}(mL) = \mathcal{O}(-log(min(q,1-p))N\gamma log(N))\]
 \end{frame}
